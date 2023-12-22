@@ -15,7 +15,7 @@ function Sales() {
     useEffect(() => {
         console.log("here")
         dispatch(getSales())
-    }, [sales.length])
+    }, [sales.length,dispatch])
 
     return (
         <div>
