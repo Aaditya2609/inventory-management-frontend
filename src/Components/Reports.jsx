@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getItems, getSales } from '../Actions/itemActions';
 
 function InventorySummary({ items, sales }) {
     const inventorySummary = items.map(item => {
         const totalQuantitySold = sales.reduce((total, sale) => {
-            const saleItem = sale.description.find(saleItem => saleItem.item._id === item._id);
+            const saleItem = sale.description.find(saleItem => saleItem.item?._id === item?._id);
             return total + (saleItem ? saleItem.quantity : 0);
         }, 0);
 
@@ -33,7 +34,7 @@ function SalesReport({ items, sales }) {
     const totalRevenue = sales.reduce((acc, cv) => acc + cv.amount, 0)
     const inventorySummary = items.map(item => {
         const totalQuantitySold = sales.reduce((total, sale) => {
-            const saleItem = sale.description.find(saleItem => saleItem.item._id === item._id);
+            const saleItem = sale.description.find(saleItem => saleItem.item?._id === item?._id);
             return total + (saleItem ? saleItem.quantity : 0);
         }, 0);
 
@@ -61,6 +62,11 @@ function Reports() {
     const [reportType, setReportType] = useState("")
     const items = useSelector((state) => state.items);
     const sales = useSelector((state) => state.sales);
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getSales())
+        dispatch(getItems())
+    }, [dispatch])
 
     return (
         <div>
