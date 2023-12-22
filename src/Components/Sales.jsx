@@ -13,8 +13,9 @@ function Sales() {
         dispatch(getItems())
     }, [dispatch])
     useEffect(() => {
-        console.log(sales)
-    }, [sales])
+        console.log("here")
+        dispatch(getSales())
+    }, [sales.length])
 
     return (
         <div>
@@ -27,9 +28,9 @@ function Sales() {
                         <div key={item._id} className='border-2 p-2 border-[#00CED1] flex flex-col gap-2 items-center justify-between rounded-lg w-52 overflow-auto h-[22rem] '>
                             <div className='flex flex-col gap-2 w-full'>{
                                 item.description.map(items => <div key={items._id} className='flex flex-col w-full border-2 p-1 border-[#00CED1] rounded-xl'>
-                                    <p className='flex justify-between'>Name: <span>{items.item.name}</span></p>
-                                    <p className='flex justify-between'>Quantity: <span>{items.quantity}</span></p>
-                                    <p className='flex justify-between'>Price: <span>₹ {items.item.price}</span></p>
+                                    <p className='flex justify-between'>Name: <span>{items.item?.name}</span></p>
+                                    <p className='flex justify-between'>Quantity: <span>{items?.quantity}</span></p>
+                                    <p className='flex justify-between'>Price: <span>₹ {items.item?.price}</span></p>
                                 </div>)
                             }</div>
                         <p className='flex justify-between w-full font-bold p-2 text-xl'> Amount: <span>₹ {item.amount}</span></p>
